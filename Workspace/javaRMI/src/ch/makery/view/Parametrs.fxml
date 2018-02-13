@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.view.ParametrsController">
+   <children>
+      <Button layoutX="93.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleClientMode" prefHeight="100.0" prefWidth="250.0" text="Client" />
+      <Button layoutX="435.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleServerMode" prefHeight="100.0" prefWidth="250.0" text="Server" />
+      <TextField fx:id="textField" layoutX="93.0" layoutY="335.0" prefHeight="43.0" prefWidth="250.0" />
+      <Label layoutX="145.0" layoutY="225.0" prefHeight="21.0" prefWidth="146.0" text="Server Address " />
+      <TextField fx:id="textFieldName" layoutX="435.0" layoutY="335.0" prefHeight="43.0" prefWidth="250.0" />
+      <Label layoutX="487.0" layoutY="225.0" prefHeight="21.0" prefWidth="146.0" text="Server Name" />
+   </children>
+</AnchorPane>

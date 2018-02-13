@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.DrawingFunctionController">
+   <children>
+      <Canvas fx:id="canvas" height="800.0" layoutX="8.0" layoutY="8.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="14.0" layoutY="855.0" mnemonicParsing="false" onAction="#handleRunBtnAction" text="Start" AnchorPane.bottomAnchor="5.0" />
+      <Button layoutX="73.0" layoutY="855.0" mnemonicParsing="false" onAction="#handleStopBtnAction" text="Stop" AnchorPane.bottomAnchor="5.0" />
+      <ProgressBar fx:id="progressBar" layoutX="552.0" layoutY="858.0" prefHeight="31.0" prefWidth="240.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Label fx:id="integral" layoutX="434.0" layoutY="864.0" prefHeight="31.0" prefWidth="117.0" text="Label" AnchorPane.bottomAnchor="5.0" />
+      <TextField fx:id="repetition" layoutX="134.0" layoutY="864.0" AnchorPane.bottomAnchor="5.0" />
+      <Label layoutX="334.0" layoutY="869.0" prefHeight="31.0" prefWidth="95.0" text="Wartosc calki: " AnchorPane.bottomAnchor="5.0" />
+   </children>
+</AnchorPane>

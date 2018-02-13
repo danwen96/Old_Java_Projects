@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.PanelController">
+   <children>
+      <Button layoutX="811.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="31.0" prefWidth="133.0" text="Rysuj" />
+      <DatePicker fx:id="dataPocz" layoutX="768.0" layoutY="70.0" />
+      <DatePicker fx:id="dataKonc" layoutX="768.0" layoutY="152.0" />
+      <Label layoutX="808.0" layoutY="34.0" text="Przeszukaj zakres od:" />
+      <Label layoutX="867.0" layoutY="122.0" text="do:" />
+      <LineChart fx:id="lineChart" layoutX="14.0" layoutY="14.0" prefHeight="582.0" prefWidth="712.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" fx:id="yAxis" />
+        </yAxis>
+      </LineChart>
+      <Label layoutX="794.0" layoutY="348.0" text="Najmniejsza:" />
+      <Label fx:id="dzienMinLabel" layoutX="794.0" layoutY="400.0" text="Szukam..." />
+      <Label layoutX="794.0" layoutY="464.0" text="Najwieksza" />
+      <Label fx:id="dzienMaxLabel" layoutX="794.0" layoutY="516.0" text="Szukam..." />
+   </children>
+</AnchorPane>

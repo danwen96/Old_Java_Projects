@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.address.view.WindowController">
+   <children>
+      <Canvas fx:id="canvas" height="500.0" layoutX="5.0" onMouseClicked="#handleMouseClick" width="790.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="440.0" layoutY="676.0" mnemonicParsing="false" onAction="#handleButtonClick" text="Zaproponuj" />
+      <Label fx:id="label" layoutX="54.0" layoutY="681.0" text="Propozycje" />
+      <TextField fx:id="textfield" layoutX="146.0" layoutY="676.0" prefHeight="31.0" prefWidth="270.0" />
+      <Button layoutX="665.0" layoutY="676.0" mnemonicParsing="false" onAction="#handleEndButtonClick" text="Zgadnieto" />
+   </children>
+</AnchorPane>

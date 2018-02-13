@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DrawerTask.java&apos; to &apos;javaRMI/src/ch.makery.address.rmiserver&apos;&#x0D;&#x0A;- Original project: &apos;zajecia_lab7&apos;&#x0D;&#x0A;- Destination element: &apos;javaRMI/src/ch.makery.address.rmiserver&apos;&#x0D;&#x0A;- Original element: &apos;ch.makery.address.model.DrawerTask.java&apos;" description="Copy compilation unit" destination="=javaRMI/src&lt;ch.makery.address.rmiserver" element1="/src&lt;ch.makery.address.model{DrawerTask.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1494975864192" units="1" version="1.0"/>
+</session>

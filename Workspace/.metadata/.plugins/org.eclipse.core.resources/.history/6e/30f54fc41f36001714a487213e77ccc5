@@ -1,0 +1,345 @@
+package ch.makery.address.view;
+
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.Collections;
+import java.util.LinkedList;
+
+import ch.makery.address.MainApp;
+import ch.makery.address.model.Card;
+import ch.makery.address.model.DrawerTask;
+import ch.makery.address.model.Move;
+//import ch.makery.address.view.BoardController.LineToAbs;
+//import ch.makery.address.view.BoardController.MoveToAbs;
+import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+
+public class GameBoardController {
+	
+	@FXML
+	private ImageView bohater1;
+	@FXML
+	private ImageView bohaterPrzeciw;
+	@FXML
+	private ImageView poleOurs11;
+	@FXML
+	private ImageView poleOurs12;
+	@FXML
+	private ImageView poleOurs13;
+	@FXML
+	private ImageView poleOurs14;
+	@FXML
+	private ImageView poleOurs21;
+	@FXML
+	private ImageView poleOurs22;
+	@FXML
+	private ImageView poleOurs23;
+	@FXML
+	private ImageView poleOurs24;
+	@FXML
+	private ImageView poleEnemy11;
+	@FXML
+	private ImageView poleEnemy12;
+	@FXML
+	private ImageView poleEnemy13;
+	@FXML
+	private ImageView poleEnemy14;
+	@FXML
+	private ImageView poleEnemy21;
+	@FXML
+	private ImageView poleEnemy22;
+	@FXML
+	private ImageView poleEnemy23;
+	@FXML
+	private ImageView poleEnemy24;
+	@FXML
+	private ImageView reka1;
+	@FXML
+	private ImageView reka2;
+	@FXML
+	private ImageView reka3;
+	@FXML
+	private ImageView reka4;
+	@FXML
+	private ImageView reka5;
+	@FXML
+	private GridPane oursgridpane;
+	@FXML
+	private GridPane enemygridpane;
+	
+	
+	private ObservableList<Card> lista = FXCollections.observableArrayList();
+	private ObservableList<ImageView> imageviews = FXCollections.observableArrayList();
+	private Move move = new Move();
+	int id1 = -1;
+	int id2 = -1;
+	
+	private Socket s;
+	OutputStream os;
+	ObjectOutputStream oos;
+	
+	
+	private MainApp mainApp;
+	
+	private int HeroHP = 30;
+	private int enemyHeroHp = 30;
+	
+	
+	public GameBoardController(){}
+	
+	@FXML
+    private void initialize() {
+		
+		for(int i=0;i<21;i++)
+		{
+			Card tmp = new Card();
+			lista.add(tmp);
+		}
+		
+		lista.get(0).setImageview(poleOurs11);
+		lista.get(1).setImageview(poleOurs12);
+		lista.get(2).setImageview(poleOurs13);
+		lista.get(3).setImageview(poleOurs14);
+		lista.get(4).setImageview(poleOurs21);
+		lista.get(5).setImageview(poleOurs22);
+		lista.get(6).setImageview(poleOurs23);
+		lista.get(7).setImageview(poleOurs24);
+		lista.get(8).setImageview(poleEnemy11);
+		lista.get(9).setImageview(poleEnemy12);
+		lista.get(10).setImageview(poleEnemy13);
+		lista.get(11).setImageview(poleEnemy14);
+		lista.get(12).setImageview(poleEnemy21);
+		lista.get(13).setImageview(poleEnemy22);
+		lista.get(14).setImageview(poleEnemy23);
+		lista.get(15).setImageview(poleEnemy24);
+		lista.get(16).setImageview(reka1);
+		lista.get(17).setImageview(reka2);
+		lista.get(18).setImageview(reka3);
+		lista.get(19).setImageview(reka4);
+		lista.get(20).setImageview(reka5);
+		
+		///Image image2 = new Image("obraz.jpg");
+		
+		Image image2 = new Image("Superhero.png");
+		//poleOurs11.setImage(image);
+		for(int i=0;i<16;i++)
+		{
+			lista.get(i).setPic(image2);
+			lista.get(i).getImageview().setImage(image2);
+		}
+		
+		for(int i=16;i<21;i++)
+		{
+			lista.get(i).getImageview().setImage(lista.get(i).getPic());
+		}
+		
+		Image image = new Image("obraz.jpg");
+		bohater1.setImage(image);
+		bohaterPrzeciw.setImage(image);
+			
+		try{
+			s = new Socket("localhost",2002);
+			os = s.getOutputStream();
+			oos = new ObjectOutputStream(os);
+			//DrawerTask task = new DrawerTask(gc,s,label);
+			
+		//	new Thread(task).start();
+		
+			}catch(Exception e){System.out.println(e);
+			}
+		
+	}
+	
+	@FXML
+	public void handleImageviewClick(final MouseEvent event)
+	{	
+		if(move.getCard1() == null)
+		{
+		Object obj = event.getSource();
+		  if ( obj instanceof ImageView )
+		  {
+			  //System.out.println(bohaterPrzeciw);
+			  for(int i=0;i<21;i++)
+			  {
+				  if(lista.get(i).getImageview() == obj)
+				  {
+					  if(i>7 && i<16) return;
+					  id1 = i;
+					  move.setCard1(lista.get(id1));
+					  break;
+				  }
+			  }	  
+		  }
+		  
+		}
+		else if(move.getCard2() == null )
+		{
+			Object obj = event.getSource();
+			int id;
+			  if ( obj instanceof ImageView )
+			  {
+				  //System.out.println(obj);
+				  
+				  if(obj == bohaterPrzeciw)
+				  {
+					  PathTransition ptr = getPathTransition(lista.get(id1).getImageview(),bohaterPrzeciw);		  
+						ptr.play();
+				  		
+				  		ptr.setOnFinished(new EventHandler<ActionEvent>() {
+				  			@Override
+				  			public void handle(ActionEvent event) {
+				  				//trade(move.getCard1(),move.getCard2());
+				  				move.setCard1(null);
+				  				move.setCard2(null);
+				  				id1 = -1;
+				  				id2 = -1;
+				  			}});
+					  //System.out.println("trafione");
+					  return;
+				  }
+				  if(obj == bohater1)
+					  return;
+				  for(int i=0;i<21;i++)
+				  {
+					  if(lista.get(i).getImageview() == obj)
+					  {
+						  if(id1 == i) return;
+						  if(i>15) return;
+						  if(id1 <16 && i<8) return;
+						  id2 = i;
+						  move.setCard2(lista.get(id2));
+						  break;
+					  }
+				  }
+			  }
+			  if(id1 < 8)
+			  {
+			  	PathTransition ptr = getPathTransition(lista.get(id1).getImageview(),lista.get(id2).getImageview());		  
+				ptr.play();
+		  		
+		  		ptr.setOnFinished(new EventHandler<ActionEvent>() {
+		  			@Override
+		  			public void handle(ActionEvent event) {
+		  				//trade(move.getCard1(),move.getCard2());
+		  				move.setCard1(null);
+		  				move.setCard2(null);
+		  				id1 = -1;
+		  				id2 = -1;
+		  			}});
+			  }
+			  else if(id1 > 15 && id2 <8){
+				  	double fx = lista.get(id1).getImageview().getLayoutX();
+			  		double fy = lista.get(id1).getImageview().getLayoutY();
+			  		double sx = lista.get(id2).getImageview().getLayoutX();
+			  		double sy = lista.get(id2).getImageview().getLayoutY();
+				  
+			  PathTransition ptr2 = getPathTransitionFromHand(lista.get(id1).getImageview(),lista.get(id2).getImageview());
+			  ptr2.play();
+			  ptr2.setOnFinished(new EventHandler<ActionEvent>() {
+		  			@Override
+		  			public void handle(ActionEvent event) {
+		  				//trade(move.getCard1(),move.getCard2());
+		  				lista.get(id1).getImageview().setTranslateX(0);
+		  				lista.get(id1).getImageview().setTranslateY(0);
+		  				lista.get(id2).getImageview().setTranslateX(0);
+		  				lista.get(id2).getImageview().setTranslateY(0);
+		  				
+		  				//Collections.swap(lista, id1, id2);
+		  				Image tmp = lista.get(id1).getPic();
+		  				Image tmp2 = lista.get(id2).getPic();
+		  				lista.get(id1).setPic(tmp2);
+		  				lista.get(id2).setPic(tmp);
+		  				
+		  				lista.get(id1).getImageview().setImage(lista.get(id1).getPic());
+		  				lista.get(id2).getImageview().setImage(lista.get(id2).getPic());
+		  				
+		  				
+		  				/*lista.get(id1).getImageview().setLayoutX(fx);
+		  				lista.get(id1).getImageview().setLayoutY(fy);
+		  				lista.get(id2).getImageview().setLayoutX(sx);
+		  				lista.get(id2).getImageview().setLayoutY(sy);*/
+		  				//lista.get(id1).getImageview().
+		  				//Collections.swap(lista, id1, id2);
+		  				//lista.get(id1).getImageview()
+		  				
+		  				move.setCard1(null);
+		  				move.setCard2(null);
+		  				id1 = -1;
+		  				id2 = -1;
+		  			}});
+			  }
+			
+		}
+	}
+	
+	
+	public void setMainApp(MainApp mainApp) {
+	        this.mainApp = mainApp;
+	}
+	 
+	
+	public void attackHero(Card a)
+	{
+		enemyHeroHp = enemyHeroHp - a.getAttack();
+	}
+	 
+	public void trade(Card a,Card b)
+	{
+		b.setHp(b.getHp() - a.getAttack());
+		if(b.getHp() > 0)
+			a.setHp(a.getHp() - b.getRetaliation());
+	}
+	
+	private PathTransition getPathTransition(ImageView first, ImageView second) {
+	
+		double layoutx  = first.localToScene(second.getBoundsInLocal()).getMinX();
+		double layouty = first.localToScene(second.getBoundsInLocal()).getMinY();
+		PathTransition ptr = new PathTransition();
+		Path path = new Path();
+		path.getElements().clear();
+		path.getElements().add(new MoveToAbs(first));
+		path.getElements().add(new LineToAbs(first, second.localToScene(second.getBoundsInLocal()).getMinX(),second.localToScene(second.getBoundsInLocal()).getMinY()));
+		path.getElements().add(new LineToAbs(first, layoutx,layouty));
+		ptr.setPath(path);
+		ptr.setNode(first);
+		return ptr;
+		}
+	private PathTransition getPathTransitionFromHand(ImageView first,ImageView second)
+	{
+		PathTransition ptr = new PathTransition();
+		Path path = new Path();
+		path.getElements().clear();
+		path.getElements().add(new MoveToAbs(first));
+		path.getElements().add(new LineToAbs(first, second.localToScene(second.getBoundsInLocal()).getMinX(),second.localToScene(second.getBoundsInLocal()).getMinY()));
+		ptr.setPath(path);
+		ptr.setNode(first);
+		return ptr;
+		
+	}
+	
+	public static class MoveToAbs extends MoveTo {
+		public MoveToAbs(Node node) {
+		super(node.getLayoutBounds().getWidth() / 2,node.getLayoutBounds().getHeight() / 2);
+		}
+		}
+		public static class LineToAbs extends LineTo {
+		public LineToAbs(Node node, double x, double y) {
+		super(x - node.localToScene(node.getBoundsInLocal()).getMinX() + node.getLayoutBounds().getWidth() / 2, y - node.localToScene(node.getBoundsInLocal()).getMinY() + node.getLayoutBounds().getHeight() / 2);
+		}
+		}
+}
